@@ -11,8 +11,31 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('doctor_locations', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('doctor_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->string('office_name');
+
+            $table->string('address');
+
+            $table->string('city');
+
+            $table->string('postal_code')->nullable();
+
+            $table->decimal('latitude', 10, 8);
+
+            $table->decimal('longitude', 11, 8);
+
+            $table->string('phone', 20)->nullable();
+
+            $table->boolean('is_main')->default(true);
+
             $table->timestamps();
         });
     }
