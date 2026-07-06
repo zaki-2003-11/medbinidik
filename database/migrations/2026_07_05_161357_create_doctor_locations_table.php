@@ -24,7 +24,15 @@ return new class extends Migration
 
             $table->string('address');
 
+            $table->string('country')->default('Morocco');
+
+            $table->string('region');
+
+            $table->string('province');
+
             $table->string('city');
+
+            $table->string('zip_code')->nullable();
 
             $table->string('postal_code')->nullable();
 
