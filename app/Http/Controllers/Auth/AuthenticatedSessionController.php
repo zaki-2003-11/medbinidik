@@ -28,7 +28,52 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = auth()->user();
+
+        // Admin
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        // Doctor
+        if ($user->role === 'doctor') {
+
+            $doctor = $user->doctor;
+
+            if (!$doctor) {
+                auth()->logout();
+
+                return redirect()->route('login')
+                    ->withErrors([
+                        'email' => 'Doctor profile not found.'
+                    ]);
+            }
+
+            if ($doctor->approval_status === 'pending') {
+
+                auth()->logout();
+
+                return redirect()->route('login')
+                    ->withErrors([
+                        'email' => 'Your account is waiting for administrator approval.'
+                    ]);
+            }
+
+            if ($doctor->approval_status === 'rejected') {
+
+                auth()->logout();
+
+                return redirect()->route('login')
+                    ->withErrors([
+                        'email' => 'Your account has been rejected. Please contact the administrator.'
+                    ]);
+            }
+
+            return redirect()->route('doctor.dashboard');
+        }
+
+        // Patient
+        return redirect()->route('patient.dashboard');
     }
 
     /**
