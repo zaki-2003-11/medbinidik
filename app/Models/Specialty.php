@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specialty extends Model
 {
-    /** @use HasFactory<\Database\Factories\SpecialtyFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }
