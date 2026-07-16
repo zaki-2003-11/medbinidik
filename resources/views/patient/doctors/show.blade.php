@@ -136,7 +136,7 @@
         <div class="mt-10 flex justify-end">
 
             <a
-                href="#"
+                href="{{ route('patient.appointments.create',$doctor) }}"
                 class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg">
 
                 Book Appointment

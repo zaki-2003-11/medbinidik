@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\SpecialtyController;
 use App\Http\Controllers\Auth\DoctorRegisterController;
 use App\Http\Controllers\Auth\PatientRegisterController;
+use App\Http\Controllers\Doctor\ConsultationController;
+use App\Http\Controllers\Patient\AppointmentController;
 use App\Http\Controllers\Patient\PatientDashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -93,14 +95,59 @@ Route::middleware(['auth', 'patient'])->group(function () {
         '/patient/doctors/{doctor}',
         [\App\Http\Controllers\Patient\DoctorController::class, 'show']
     )->name('patient.doctors.show');
+
+    Route::get(
+        '/patient/appointments',
+        [AppointmentController::class, 'index']
+    )->name('patient.appointments.index');
+
+    Route::get(
+        '/patient/appointments/create/{doctor}',
+        [AppointmentController::class, 'create']
+    )->name('patient.appointments.create');
+
+    Route::post(
+        '/patient/appointments',
+        [AppointmentController::class, 'store']
+    )->name('patient.appointments.store');
 });
 
 //###
 Route::middleware(['auth', 'doctor'])->group(function () {
 
     Route::get('/doctor/dashboard', function () {
-        return 'Doctor Dashboard';
+        return view('doctor.dashboard');
     })->name('doctor.dashboard');
+
+    Route::get(
+        '/doctor/appointments',
+        [\App\Http\Controllers\Doctor\AppointmentController::class, 'index']
+    )->name('doctor.appointments.index');
+
+    Route::get(
+        '/doctor/appointments/{appointment}',
+        [\App\Http\Controllers\Doctor\AppointmentController::class, 'show']
+    )->name('doctor.appointments.show');
+
+    Route::patch(
+        '/doctor/appointments/{appointment}/confirm',
+        [\App\Http\Controllers\Doctor\AppointmentController::class, 'confirm']
+    )->name('doctor.appointments.confirm');
+
+    Route::patch(
+        '/doctor/appointments/{appointment}/reject',
+        [\App\Http\Controllers\Doctor\AppointmentController::class, 'reject']
+    )->name('doctor.appointments.reject');
+
+    Route::get(
+        '/doctor/appointments/{appointment}/consultation/create',
+        [ConsultationController::class, 'create']
+    )->name('doctor.consultations.create');
+
+    Route::post(
+        '/doctor/appointments/{appointment}/consultation',
+        [ConsultationController::class, 'store']
+    )->name('doctor.consultations.store');
 });
 
 

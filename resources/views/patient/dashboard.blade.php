@@ -1,3 +1,6 @@
+@extends('patient.layouts.app')
+
+@section('content')
 <x-app-layout>
 
     <x-slot name="header">
@@ -27,3 +30,5 @@
     </div>
 
 </x-app-layout>
+
+@endsection

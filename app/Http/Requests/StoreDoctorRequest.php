@@ -48,6 +48,18 @@ class StoreDoctorRequest extends FormRequest
 
             'consultation_fee' => 'required|numeric|min:0',
 
+            'office_name' => 'required|max:255',
+
+            'address' => 'required|max:255',
+
+            'region' => 'required|max:255',
+
+            'province' => 'required|max:255',
+
+            'city' => 'required|max:255',
+
+            'office_phone' => 'nullable|max:20',
+
         ];
     }
 }

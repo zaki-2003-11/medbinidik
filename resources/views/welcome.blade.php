@@ -19,17 +19,23 @@
 
         <div class="bg-white rounded-xl shadow-lg p-10">
 
-            <h1 class="text-4xl font-bold text-center text-blue-700">
+            <div class="flex flex-col items-center">
 
-                MED BIN IDIK
+                <img src="{{ asset('images/logo medbinidik.png') }}" alt="MED BIN IDIK Logo" class="w-28 h-28 object-contain mb-5">
 
-            </h1>
+                <h1 class="text-4xl font-bold text-blue-700">
 
-            <p class="text-center text-gray-500 mt-3">
+                    MED BIN IDIK
 
-                Medical Appointment Management System
+                </h1>
 
-            </p>
+                <p class="text-center text-gray-500 mt-3">
+
+                    Medical Appointment Management System
+
+                </p>
+
+            </div>
 
             <hr class="my-8">
 
