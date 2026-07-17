@@ -1,4 +1,4 @@
-@extends('patient.layouts.app')
+@extends('layouts.patient')
 
 @section('content')
 <x-app-layout>

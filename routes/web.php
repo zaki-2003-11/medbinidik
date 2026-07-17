@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PatientRegisterController;
 use App\Http\Controllers\Doctor\ConsultationController;
 use App\Http\Controllers\Patient\AppointmentController;
 use App\Http\Controllers\Patient\PatientDashboardController;
+use App\Http\Controllers\Doctor\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -110,14 +111,25 @@ Route::middleware(['auth', 'patient'])->group(function () {
         '/patient/appointments',
         [AppointmentController::class, 'store']
     )->name('patient.appointments.store');
+
+    Route::get(
+        '/patient/consultations',
+        [\App\Http\Controllers\Patient\ConsultationController::class, 'index']
+    )->name('patient.consultations.index');
+
+    Route::get(
+        '/patient/consultations/{consultation}',
+        [\App\Http\Controllers\Patient\ConsultationController::class, 'show']
+    )->name('patient.consultations.show');
 });
 
 //###
 Route::middleware(['auth', 'doctor'])->group(function () {
 
-    Route::get('/doctor/dashboard', function () {
-        return view('doctor.dashboard');
-    })->name('doctor.dashboard');
+    Route::get(
+        '/doctor/dashboard',
+        [DashboardController::class, 'index']
+    )->name('doctor.dashboard');
 
     Route::get(
         '/doctor/appointments',
